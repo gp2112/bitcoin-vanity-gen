@@ -9,6 +9,10 @@ import (
 	"github.com/gp2112/bitcoin-vanity-gen/base58"
 	"crypto/rand"
 	"regexp"
+	"net/http"
+	"encoding/json"
+	"io/ioutil"
+	"math"
 )
 
 func main() {
@@ -31,6 +35,10 @@ func vanity(word string) {
 	}
 	fmt.Printf("%d addresses runned!", count)
 	fmt.Printf("\nPrivateKey(Hex): %s\nPrivateKey(WIF): %s\nAddress: %s\n", priv, hex_wif(priv), address)
+	fmt.Printf("Address Balance: %f %s\n", getBalance(address), "BTC")
+	fmt.Println("*---------------------------------------------------------------------------------------------------------*")
+	fmt.Println("  Warning: Always check if the private key corresponds with the address created, before send coins to it!")
+	fmt.Println("*---------------------------------------------------------------------------------------------------------*")
 }
 
 func getKeyAddress() (string, string) {
@@ -71,4 +79,26 @@ func random_seed() ([]byte, error) {
 		return nil, err
 	}
 	return b, nil
+}
+
+func getBalance(address string) float64 {
+	resp, _ := http.Get("https://blockchain.info/rawaddr/"+address)
+	data, _ := ioutil.ReadAll(resp.Body)
+	resp.Body.Close()
+	var addrs Address
+	err := json.Unmarshal(data, &addrs)
+	if err != nil {
+		fmt.Println(err)
+	}
+	total_sent := float64(addrs.Total_sent)*math.Pow10(-8)
+	return total_sent
+}
+
+type Address struct {
+	Hash160 string
+	Address string
+	N_tx int
+	Total_received int
+	Total_sent int
+	Final_balance int
 }
