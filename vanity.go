@@ -54,7 +54,7 @@ func getKeyAddress() (string, string) {
 }
 
 func hex_wif(priv string) string {
-	priv_mainnet, _ := hex.DecodeString("80"+priv)
+	priv_mainnet, _ := hex.DecodeString("80"+priv+"01")
 	hash_mainnet := sha256.New()
 	hash_mainnet.Write(priv_mainnet)
 	hash2 := sha256.New()
