@@ -7,6 +7,7 @@ import (
 	"crypto/sha256"
 	"golang.org/x/crypto/ripemd160"
 	"github.com/gp2112/bitcoin-vanity-gen/base58"
+	"github.com/gp2112/bitcoin-vanity-gen/qrcode"
 	"crypto/rand"
 	"regexp"
 	"net/http"
@@ -33,12 +34,30 @@ func vanity(word string) {
 		pattern, _ :=  regexp.Match(word, []byte(address[0:10]))
 		unpattern = pattern
 	}
+<<<<<<< HEAD
+/////////////////////////////////////////////////////// Got Adress!! /////////////////////////////////////////////////////////////
+	fmt.Printf("%d addresses runned!", count)																					//
+	fmt.Printf("\nPrivateKey(Hex): %s\nPrivateKey(WIF): %s\nAddress: %s\n", priv, hex_wif(priv), address)						//
+	fmt.Printf("Address Balance: %f %s\n", getBalance(address), "BTC")															//
+	fmt.Println("*---------------------------------------------------------------------------------------------------------*")	//
+	fmt.Println("  Warning: Always check if the private key corresponds with the address created, before send it coins!")		//
+	fmt.Println("*---------------------------------------------------------------------------------------------------------*")	//
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	var answer string
+	fmt.Printf("\nGenerate qr code for your address? (y/n): ")
+	fmt.Scanf("%s", &answer)
+	if answer == "y" {
+		fmt.Println("")
+		makeqr(address)
+	}
+=======
 	fmt.Printf("%d addresses runned!", count)
 	fmt.Printf("\nPrivateKey(Hex): %s\nPrivateKey(WIF): %s\nAddress: %s\n", priv, hex_wif(priv), address)
 	fmt.Printf("Address Balance: %f %s\n", getBalance(address), "BTC")
 	fmt.Println("*---------------------------------------------------------------------------------------------------------*")
 	fmt.Println("  Warning: Always check if the private key corresponds with the address created, before send coins to it!")
 	fmt.Println("*---------------------------------------------------------------------------------------------------------*")
+>>>>>>> 65a3325d014b7fbfc866629b1655b1652a76da01
 }
 
 func getKeyAddress() (string, string) {
