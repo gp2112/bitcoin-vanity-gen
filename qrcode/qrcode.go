@@ -10,13 +10,13 @@ import (
 )
 
 
-type cmdOptions struct {
+type CmdOptions struct {
 	Help    bool `short:"h" long:"help" description:"show this help message"`
 	Inverse bool `short:"i" long:"invert" description:"invert color"`
 }
 
 
-func pErr(format string, a ...interface{}) {
+func PErr(format string, a ...interface{}) {
 	fmt.Fprint(os.Stdout, os.Args[0], ": ")
 	fmt.Fprintf(os.Stdout, format, a...)
 }
@@ -25,11 +25,11 @@ func Makeqr(text string) {
 	ret := 0
 	defer func() { os.Exit(ret) }()
 
-	opts := &cmdOptions{}
+	opts := &CmdOptions{}
 
 	grid, err := qrencode.Encode(text, qrencode.ECLevelL)
 	if err != nil {
-		pErr("encode failed: %v\n", err)
+		PErr("encode failed: %v\n", err)
 		ret = 1
 		return
 	}
