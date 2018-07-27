@@ -7,7 +7,7 @@ import (
 	"crypto/sha256"
 	"golang.org/x/crypto/ripemd160"
 	"github.com/gp2112/bitcoin-vanity-gen/base58"
-	"github.com/gp2112/bitcoin-vanity-gen/qrcode"
+	qrc "github.com/gp2112/bitcoin-vanity-gen/qrcode"
 	"crypto/rand"
 	"regexp"
 	"net/http"
@@ -47,7 +47,7 @@ func vanity(word string) {
 	fmt.Scanf("%s", &answer)
 	if answer == "y" {
 		fmt.Println("")
-		makeqr(address)
+		qrc.Makeqr(address)
 	}
 	fmt.Printf("%d addresses runned!", count)
 	fmt.Printf("\nPrivateKey(Hex): %s\nPrivateKey(WIF): %s\nAddress: %s\n", priv, hex_wif(priv), address)
