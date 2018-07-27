@@ -36,11 +36,11 @@ func vanity(word string) {
 	}
 /////////////////////////////////////////////////////// Got Adress!! /////////////////////////////////////////////////////////////
 	fmt.Printf("%d addresses runned!", count)																					//
-	fmt.Printf("\nPrivateKey(Hex): %s\nPrivateKey(WIF): %s\nAddress: %s\n", priv, hex_wif(priv), address)						//
-	fmt.Printf("Address Balance: %f %s\n", getBalance(address), "BTC")															//
-	fmt.Println("*---------------------------------------------------------------------------------------------------------*")	//
-	fmt.Println("  Warning: Always check if the private key corresponds with the address created, before send it coins!")		//
-	fmt.Println("*---------------------------------------------------------------------------------------------------------*")	//
+	fmt.Printf("\nPrivateKey(Hex): %s\nPrivateKey(WIF): %s\nAddress: %s\n", priv, hex_wif(priv), address)	
+	fmt.Printf("Address Balance: %f %s\n", getBalance(address), "BTC")							
+	fmt.Println("*---------------------------------------------------------------------------------------------------------*")
+	fmt.Println("  Warning: Always check if the private key corresponds with the address created, before send it coins!")	
+	fmt.Println("*---------------------------------------------------------------------------------------------------------*")
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	var answer string
 	fmt.Printf("\nGenerate qr code for your address? (y/n): ")
