@@ -21,7 +21,7 @@ func pErr(format string, a ...interface{}) {
 	fmt.Fprintf(os.Stdout, format, a...)
 }
 
-func makeqr(text string) {
+func Makeqr(text string) {
 	ret := 0
 	defer func() { os.Exit(ret) }()
 
