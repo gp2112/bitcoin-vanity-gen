@@ -49,12 +49,6 @@ func vanity(word string) {
 		fmt.Println("")
 		qrc.Makeqr(address)
 	}
-	fmt.Printf("%d addresses runned!", count)
-	fmt.Printf("\nPrivateKey(Hex): %s\nPrivateKey(WIF): %s\nAddress: %s\n", priv, hex_wif(priv), address)
-	fmt.Printf("Address Balance: %f %s\n", getBalance(address), "BTC")
-	fmt.Println("*---------------------------------------------------------------------------------------------------------*")
-	fmt.Println("  Warning: Always check if the private key corresponds with the address created, before send coins to it!")
-	fmt.Println("*---------------------------------------------------------------------------------------------------------*")
 }
 
 func getKeyAddress() (string, string) {
