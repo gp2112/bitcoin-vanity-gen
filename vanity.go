@@ -7,7 +7,6 @@ import (
 	"crypto/sha256"
 	"golang.org/x/crypto/ripemd160"
 	"github.com/gp2112/bitcoin-vanity-gen/base58"
-	qrc "github.com/gp2112/bitcoin-vanity-gen/qrcode"
 	"crypto/rand"
 	"regexp"
 	"net/http"
@@ -20,38 +19,44 @@ func main() {
 	fmt.Print("Name: ")
 	var word string
 	fmt.Scan(&word)
+
 	vanity(word)
+	//vanity(word)
+	//go vanity(word)
+	//go vanity(word)
 }
 
 func vanity(word string) {
 	unpattern := false
-	priv, address := "", ""
+	pub, priv, address := "", "", ""
 	count := 0
 	fmt.Println("Finding...")
 	for unpattern != true {
 		count++
-		priv, address = getKeyAddress()
+		pub, priv, address = getKeyAddress()
 		pattern, _ :=  regexp.Match(word, []byte(address[0:10]))
 		unpattern = pattern
 	}
 /////////////////////////////////////////////////////// Got Adress!! /////////////////////////////////////////////////////////////
-	fmt.Printf("%d addresses runned!", count)																					//
+	fmt.Printf("%d addresses runned!", count)
+	fmt.Printf("\nPublicKey(HEX): %s", pub)																				//
 	fmt.Printf("\nPrivateKey(Hex): %s\nPrivateKey(WIF): %s\nAddress: %s\n", priv, hex_wif(priv), address)	
 	fmt.Printf("Address Balance: %f %s\n", getBalance(address), "BTC")							
 	fmt.Println("*---------------------------------------------------------------------------------------------------------*")
 	fmt.Println("  Warning: Always check if the private key matchs with the address created, before send it coins!")	
 	fmt.Println("*---------------------------------------------------------------------------------------------------------*")
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	var answer string
+	/*var answer string
 	fmt.Printf("\nGenerate qr code for your address? (y/n): ")
 	fmt.Scanf("%s", &answer)
 	if answer == "y" {
 		fmt.Println("")
 		qrc.Makeqr(address)
-	}
+	}*/
 }
 
-func getKeyAddress() (string, string) {
+func getKeyAddress() (string, string, string) {
 	seed, _ := random_seed()
 	pub, priv := secp256k1.GenerateDeterministicKeyPair(seed)
 	hash_pub := sha256.New()
@@ -68,7 +73,7 @@ func getKeyAddress() (string, string) {
 	check_ripe := ext_ripe+checksum
 	checkripe_decoded, _ := hex.DecodeString(check_ripe)
 	address := base58.Encode(checkripe_decoded)
-	return hex.EncodeToString(priv), address
+	return hex.EncodeToString(pub), hex.EncodeToString(priv), address
 }
 
 func hex_wif(priv string) string {

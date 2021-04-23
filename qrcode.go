@@ -1,4 +1,4 @@
-package qrcode
+package main
 
 import (
 	"github.com/qpliu/qrencode-go/qrencode"
