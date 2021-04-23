@@ -1,3 +1,6 @@
+** Warning **
+The addresses are in P2PKH!
+
 # Installing:
 ```bash
 $ make requirements
