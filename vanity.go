@@ -6,7 +6,7 @@ import (
 	"encoding/hex"
 	"crypto/sha256"
 	"golang.org/x/crypto/ripemd160"
-	"github.com/gp2112/bitcoin-vanity-gen/base58"
+	"github.com/btcsuite/btcutil/base58"
 	"crypto/rand"
 	"regexp"
 	"net/http"
